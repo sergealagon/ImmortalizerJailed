@@ -46,6 +46,7 @@ static void vibrateDevice() {
 - (instancetype)init {
     self = [super initWithFrame:UIScreen.mainScreen.bounds];
     if (self) {
+        self.isImmortalized = [[NSUserDefaults standardUserDefaults] boolForKey:@"immortalized"];
         [self setupWindow];
         [self updateAndShowToast];
         [self setupButton];

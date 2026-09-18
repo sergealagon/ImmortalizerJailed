@@ -1,0 +1,35 @@
+name: Build Jailed Dylib
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Theos
+        uses: Randomblock1/theos-action@v1
+
+      - name: Install iOS SDK
+        run: |
+          git clone --depth 1 https://github.com/theos/sdks.git /tmp/sdks
+          cp -a /tmp/sdks/iPhoneOS14.5.sdk $THEOS/sdks/
+
+      - name: Build Dylib
+        run: |
+          # Jailed tweaks do not need rootless flags, just a standard make
+          make FINALPACKAGE=1 -j$(sysctl -n hw.ncpu)
+
+      - name: Upload Dylib Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ImmortalizerJailed-Dylib
+          # This grabs the raw compiled .dylib before it gets packaged into a .deb
+          path: .theos/obj/**/*.dylib

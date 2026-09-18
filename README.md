@@ -14,7 +14,7 @@ _This is the jailed version of the tweak [Immortalizer](https://github.com/serge
 ### Details
 - Just like the tweak, it can make apps stay in the foreground, however, you need to inject this onto the app you want to immortalize. 
 - There would be a **floating movable button** that you can press to toggle Immortalizer
-- Just like the TrollStore version, there's no way to force notifications. It's a bit tricky to force notifications to show, especially for apps that render their own notification UI when their app is opened (e.g. WhatsApp).
+
 
 # License
     Copyright (C) 2025  Serge Alagon
